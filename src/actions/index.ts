@@ -1,5 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
+import { api } from '../services/api';
+
 import { API } from '../constants/api';
 
 import { ACTIONS, DispatchType } from '../reducers/types';
@@ -14,11 +16,11 @@ export function fetchSuccess<T, P>(type: T, payload: P) {
 };
 
 export function fetchData<T>() {
-  return (dispatch: DispatchType) => {
-    axios.get(API.TEST(), {
+  return async (dispatch: DispatchType) => {
+    api.get(API.TEST(), {
       cancelToken: source.token,
     })
-      .then((response: AxiosResponse<T>) => {
+      .then(async(response: AxiosResponse<T>) => {
         const { data } = response;
 
         dispatch(fetchSuccess(ACTIONS.FETCH_ACTION, data));

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import { AxiosResponse, AxiosError } from 'axios';
+
+import { api } from './api';
 
 import { FetchErrorType } from '../types';
 
@@ -12,7 +14,7 @@ export function withInterceptors<T, P>(Component: React.FC) {
     const [fetchError, setFetchError] = useState<FetchErrorType>(FETCH_ERROR_DEFAULT);
 
     useEffect(() => {
-      axios.interceptors.response.use((response: AxiosResponse<T>) => {
+      api.interceptors.response.use((response: AxiosResponse<T>) => {
         setFetchError(FETCH_ERROR_DEFAULT);
 
         return response;
